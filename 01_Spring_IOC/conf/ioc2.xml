@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="car01" class="com.study.bean.Car">
+        <property name="carName" value="baoma"></property>
+        <property name="color" value="red"></property>
+        <property name="price" value="100"></property>
+    </bean>
+    <bean id="book00" class="com.study.bean.Book" p:bookName="aaaa" p:author="hyh"></bean>
+    <bean id="person" class="com.study.bean.Person">
+        <property name="lastName">
+            <!--进行复杂赋值-->
+            <null></null>
+        </property>
+        <!--ref:代表引用外面的一个值(严格引用) car= ioc.getBean("car01")-->
+        <!--<property name="car" ref="car01">-->
+        <property name="car">
+            <!--对象可以使用bean标签创建 car =new Car();内部bean不能通过id获取到只能内部使用-->
+            <bean class="com.study.bean.Car">
+                <property name="carName" value="benci"></property>
+                <property name="color" value="green"></property>
+                <property name="price" value="1000"></property>
+            </bean>
+        </property>
+        <!--如何为list类型赋值-->
+        <property name="books">
+            <!--books = new ArrayList<Book>()-->
+            <list>
+                <!--list标签体中添加每一个元素-->
+                <bean class="com.study.bean.Book" p:author="lyd" p:bookName="hahah"></bean>
+                <!--引用一个外部对象-->
+                <ref bean="book00"></ref>
+            </list>
+        </property>
+        <property name="maps">
+            <!--maps = new LinkedHashMap<>();-->
+            <map>
+                <!--一个entry代表一个键值对-->
+                <entry key="key01" value="zhangsan"></entry>
+                <entry key="key02" value="18"></entry>
+                <entry key="key03" value-ref="book00"></entry>
+                <entry key="key04">
+                    <bean class="com.study.bean.Car" p:carName="biyadi" p:color="black" p:price="50"></bean>
+                </entry>
+                <!--<entry key="key05">-->
+                <!--    <map></map>-->
+                <!--</entry>-->
+            </map>
+        </property>
+        <property name="properties">
+            <!--properties = new Properties();-->
+            <props>
+                <!--所有的key value都是string类型 值都写在标签体内-->
+                <prop key="username">root</prop>
+                <prop key="password">123456</prop>
+            </props>
+        </property>
+    </bean>
+    <!--util名称空间创建集合类型的bean：方便引用-->
+    <bean id="person01" class="com.study.bean.Person">
+        <property name="maps" ref="myMap"></property>
+    </bean>
+    <!--相当于new LinkedHashMap<>()-->
+    <util:map id="myMap">
+        <entry key="key01" value="zhangsan"></entry>
+        <entry key="key02" value="18"></entry>
+        <entry key="key03" value-ref="book00"></entry>
+        <entry key="key04">
+            <bean class="com.study.bean.Car" p:carName="biyadi" p:color="black" p:price="50"></bean>
+        </entry>
+    </util:map>
+</beans>
