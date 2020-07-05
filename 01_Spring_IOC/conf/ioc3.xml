@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--原来是按照配置的顺序创建bean-->
+    <!--改变bean的创建顺序-->
+    <!--depends-on="car,book",配置创建person的时候先创建car，book，depends-on属性值也是有顺序的-->
+    <bean id="person" class="com.study.bean.Person" depends-on="car,book"></bean>
+    <bean id="car" class="com.study.bean.Car"></bean>
+    <bean id="book" class="com.study.bean.Book"></bean>
+
+
+
+    <!--测试bean的作用域，分别创建单实例和多实例的bean-->
+    <!--bean的作用域：指定bean是否单实例，默认是单实例的-->
+    <!--
+        prototype:多实例
+            1.容器启动默认不会去创建多实例bean
+            2.获取的时候创建bean
+            3.每次获取都会创建一个新的容器（对象）
+        singleton:单实例
+            1.在容器启动完成之前就已经创建好对象，保存在容器中了
+            2.任何时候要获取都是获取之前创建好的那个
+        request:在web环境下，同一次请求创建一个bean实例(没用)
+        session:在web环境下，同一次会话创建一个bean实例(没用)
+    -->
+    <bean id="book01" class="com.study.bean.Book" scope="prototype"></bean>
+
+
+
+    <!--配置通过静态工厂方法创建的bean、实例工厂方法创建的bean、FactoryBean-->
+    <!--bean的创建默认就是框架利用反射new出来的bean实例-->
+    <!--工厂模式： 工厂帮我们创建对象:有一个专门帮我们创建对象的类，这个类就是工厂
+        AirPlaneFactory.getAirPlane(String jzName)
+
+        静态工厂：工厂本身不用创建对象，都是通过静态方法调用，工厂类，工厂方法名。
+        实力工厂：工厂本事需要创建对象，工厂类 对象 = new 工厂类（）；
+        工厂对象.getAirPlane(“张三”)；
+    -->
+    <!--1.静态工厂（不需要创建工厂本身）,class 指定静态工厂全类名，factory-method 指定创建对象的方法如果该方法需要传参则用constructor-arg指定参数-->
+    <bean id="airPlane01" class="com.study.factory.AirPlaneStaticFactory" factory-method="getAirPlane">
+        <!--可以为方法指定参数-->
+        <constructor-arg name="jzName" value="lisi"></constructor-arg>
+    </bean>
+    <!--2.实例工厂使用 指定工厂方法factory-method-->
+    <bean id="airPlane02" class="com.study.factory.AirPlaneInstanceFactory"></bean>
+    <!--factoryBean指定当前对象创建使用哪个工厂
+        先配置出实例工厂对象
+        配置我们要创建的对象使用哪个工厂创建
+            factory-bean指定使用哪个工厂实例
+            factory-method指定使用哪个工厂方法
+    -->
+    <bean id="airPlane" class="com.study.bean.AirPlane" factory-bean="airPlane02" factory-method="getAirPlane">
+        <constructor-arg value="wangwu"></constructor-arg>
+    </bean>
+
+    <!--FactoryBean()是Spring规定的一个接口，只要是这个接口的实现类，Spring都认为是一个工厂，
+        ioc容器启动的时候不会创建实例
+        FactoryBean获取的时候才会创建对象
+    -->
+    <bean id="myFactoryBean" class="com.study.factory.MyFactoryBeanImpl"></bean>
+</beans>

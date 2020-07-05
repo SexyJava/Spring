@@ -7,7 +7,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @Author Liuyunda
@@ -18,7 +19,8 @@ import java.util.Map;
 
 public class IOCTest {
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc.xml");
-    private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc2.xml");
+    // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc2.xml");
+    private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc3.xml");
 
     /**
      * @Description: 从容器中拿到这个组件
@@ -111,11 +113,113 @@ public class IOCTest {
         // System.out.println(book01);
         System.out.println(person.getMaps());
         System.out.println(person.getProperties());
-        Person person02 = (Person) ioc.getBean("person01");
-        System.out.println(person02.getMaps());
-        Map myMap = (Map) ioc.getBean("myMap");
-        System.out.println(myMap);
+        Person person02 = (Person) ioc.getBean("person02");
+        System.out.println(person02);
 
 
+    }
+    /**
+     * @Description: 测试级联属性
+     *      级联属性可以修改属性的属性，原来的bean的属性的值也会修改
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test05(){
+        Person person02 = (Person) ioc.getBean("person02");
+        System.out.println(person02);
+        Car car01 = (Car) ioc.getBean("car01");
+        System.out.println(car01.getPrice());
+    }
+    /**
+     * @Description: 通过继承实现bean的配置信息的重用
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test06(){
+        Person person04 = (Person) ioc.getBean("person04");
+        System.out.println(person04);
+    }
+
+    /**
+     * @Description: 通过abstract属性创建一个模版bean，不能被获取实例，只能被继承
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test07(){
+        //org.springframework.beans.factory.BeanIsAbstractException: Error creating bean with name 'person03': Bean definition is abstract
+        Person person03 = (Person) ioc.getBean("person03");
+        System.out.println(person03);
+    }
+
+    /**
+     * @Description: bean之间的依赖关系
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test08(){
+
+    }
+
+    /**
+     * @Description: 测试bean的作用域，分别创建单实例和多实例的bean
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test09(){
+
+    }
+
+    /**
+     * @Description: 配置通过静态工厂方法创建的bean、实例工厂方法创建的bean、FactoryBeaan
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/6/27
+     */
+    @Test
+    public void test10(){
+
+    }
+    /**
+     * @Description: 配置通过静态工厂方法创建的bean、实例工厂方法创建的bean、FactoryBean
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/7/5
+     */
+    @Test
+    public void test11(){
+        // Object airPlane01 = ioc.getBean("airPlane01");
+        // System.out.println(airPlane01);
+        Object airPlane = ioc.getBean("airPlane");
+        System.out.println(airPlane);
+    }
+
+    /**
+     * @Description: FactoryBean()是Spring规定的一个接口，只要是这个接口的实现类，Spring都认为是一个工厂
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/7/5
+     */
+    @Test
+    public void test12(){
+        Object myFactoryBean = ioc.getBean("myFactoryBean");
+        System.out.println(myFactoryBean);
     }
 }
