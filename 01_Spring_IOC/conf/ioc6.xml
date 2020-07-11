@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean id="car" class="com.study.bean.Car">-->
+    <!--    <property name="carName" value="benchi"></property>-->
+    <!--    <property name="color" value="Red"></property>-->
+    <!--    <property name="price" value="100"></property>-->
+    <!--</bean>-->
+    <!--<bean id="car01" class="com.study.bean.Car">-->
+    <!--    <property name="carName" value="宝马"></property>-->
+    <!--    <property name="color" value="Red"></property>-->
+    <!--    <property name="price" value="100"></property>-->
+    <!--</bean>-->
+    <!--为Person里面的自定义类型的属性赋值
+        property：手动赋值
+        autowire: 自动赋值（自动装配），仅限自定义类型
+            autowire="byName"：按照名字，以属性名最为id去容器中找到这个组件并赋值,找不到装配null
+            autowire="byType"：按照类型，以属性的类型作为查找依据去容器中找到这个组件，找不到装配null，如果容器中有多个这种类型的组件，则报错没有唯一的bean
+            autowire="constructor"：按照构造器，先按照有参构造器的参数类型进行装配，找不到装配null，如果按照类型找到多个，参数的名作为id继续匹配，找不到就装配null，不会报错
+            autowire="default"和autowire="no"
+    -->
+    <bean id="person" class="com.study.bean.Person" autowire="byType">
+        <!--<property name="car" ref="car"></property>-->
+    </bean>
+    <!--容器可以把容器中的所有book赋值给list-->
+    <bean id="book01" class="com.study.bean.Book" p:author="张三"></bean>
+    <bean id="book02" class="com.study.bean.Book" p:author="李四"></bean>
+    <bean id="book03" class="com.study.bean.Book" p:author="王五"></bean>
+</beans>

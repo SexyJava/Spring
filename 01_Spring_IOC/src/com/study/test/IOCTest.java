@@ -27,7 +27,8 @@ public class IOCTest {
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc2.xml");
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc3.xml");
     // private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc4.xml");
-    private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc5.xml");
+    // private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc5.xml");
+    private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc6.xml");
 
     /**
      * @Description: 从容器中拿到这个组件
@@ -265,5 +266,17 @@ public class IOCTest {
         Connection connection = dataSource.getConnection();
         System.out.println(connection);
         System.out.println(ioc.getBean(Car.class));
+    }
+    /**
+     * @Description: 自动装配
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/7/11
+     */
+    @Test
+    public void test15(){
+        Person bean = ioc.getBean(Person.class);
+        System.out.println(bean);
     }
 }

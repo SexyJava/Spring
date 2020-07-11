@@ -20,6 +20,11 @@ public class Person {
     private Map<String, Object> maps;
     private Properties properties;
 
+    public Person(Car car) {
+        this.car = car;
+        System.out.println("可以为car赋值的有参构造器");
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -70,13 +75,13 @@ public class Person {
         System.out.println("我被创建了");
     }
 
-    public Person(String lastName, Integer age, String gender, String email) {
-        this.lastName = lastName;
-        this.age = age;
-        this.gender = gender;
-        this.email = email;
-        System.out.println("有参构造器被调用了");
-    }
+    // public Person(String lastName, Integer age, String gender, String email) {
+    //     this.lastName = lastName;
+    //     this.age = age;
+    //     this.gender = gender;
+    //     this.email = email;
+    //     System.out.println("有参构造器被调用了");
+    // }
 
     public String getLastName() {
         return lastName;
