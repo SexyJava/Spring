@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--引入外部属性文件-->
+    <!--数据库连接池作为单实例是最好的，一个项目一个连接池没连接池里面管理很多链接-->
+    <!--可以让spring帮我们创建连接池对象（管理连接池）-->
+    <!--引用外部属性，依赖context名称空间-->
+    <!--加载外部配置文件-->
+    <!--classpath: 表示引入类路径下的文件-->
+    <!--${} 动态取出资源文件中的值-->
+    <!--数据库的用户名不能用username，因为是系统的关键字-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+        <property name="driverClass" value="${jdbc.driverClass}"></property>
+    </bean>
+    <bean id="car" class="com.study.bean.Car">
+        <property name="carName" value="${username}"></property>
+    </bean>
+</beans>

@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +26,8 @@ public class IOCTest {
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc.xml");
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc2.xml");
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc3.xml");
-    private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc4.xml");
+    // private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc4.xml");
+    private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc5.xml");
 
     /**
      * @Description: 从容器中拿到这个组件
@@ -244,5 +248,22 @@ public class IOCTest {
         ioc.getBean("book01");
         System.out.println("容器手动关闭");
         ioc.close();
+    }
+    /**
+     * @Description: 数据库连接池
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/7/11
+     */
+    @Test
+    public void test14() throws SQLException {
+        // 从容器中拿到连接池
+        // DataSource dataSource = (DataSource) ioc.getBean("dataSource");
+        // 如果按照类型获取还可以获取到这个类型下的所有实现类
+        DataSource dataSource = ioc.getBean(DataSource.class);
+        Connection connection = dataSource.getConnection();
+        System.out.println(connection);
+        System.out.println(ioc.getBean(Car.class));
     }
 }
