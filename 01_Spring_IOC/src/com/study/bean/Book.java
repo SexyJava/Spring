@@ -11,6 +11,7 @@ public class Book {
     private String author;
 
     public Book() {
+        System.out.println("书被创建");
     }
 
     public Book(String bookName, String author) {
@@ -18,6 +19,12 @@ public class Book {
         this.author = author;
     }
 
+    public void myInit(){
+        System.out.println("书的初始化方法");
+    }
+    public void myDestory(){
+        System.out.println("书的销毁方法");
+    }
     @Override
     public String toString() {
         return "Book{" +

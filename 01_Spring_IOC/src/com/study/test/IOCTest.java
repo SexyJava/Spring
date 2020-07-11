@@ -5,6 +5,7 @@ import com.study.bean.Car;
 import com.study.bean.Person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
@@ -18,9 +19,11 @@ import java.util.HashMap;
  */
 
 public class IOCTest {
+
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc.xml");
     // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc2.xml");
-    private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc3.xml");
+    // private  ApplicationContext ioc = new ClassPathXmlApplicationContext("ioc3.xml");
+    private ConfigurableApplicationContext ioc = new ClassPathXmlApplicationContext("ioc4.xml");
 
     /**
      * @Description: 从容器中拿到这个组件
@@ -221,5 +224,22 @@ public class IOCTest {
     public void test12(){
         Object myFactoryBean = ioc.getBean("myFactoryBean");
         System.out.println(myFactoryBean);
+    }
+    /**
+     * @Description: 创建带有生命周期的bean
+     * 单例bean的生命周期
+     *      构造器---->初始化方法---->销毁
+     * 多例bean的生命周期
+     *      获取bean（构造器）---->初始化方法---->容器关闭
+     * @Param: []
+     * @return: void
+     * @Author: Liuyunda
+     * @Date: 2020/7/11
+     */
+    @Test
+    public void test13(){
+        ioc.getBean("book01");
+        System.out.println("容器手动关闭");
+        ioc.close();
     }
 }

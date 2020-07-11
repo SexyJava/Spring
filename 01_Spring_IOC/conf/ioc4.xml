@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--创建带有生命周期方法的bean
+        生命周期：bean的创建于销毁
+        ioc容器中注册的bean
+            1.单例bean，容器启动的时候就会创建好，容器关闭也会销毁创建的bean
+            2.多例bean，获取的时候才创建
+        spring可以自定义一些生命周期方法：spring在创建或销毁的时候就会调用指定的方法
+        自定义初始化方法和销毁方法：不能带有参数，但是能抛出异常
+
+    -->
+    <bean id="book01" class="com.study.bean.Book" scope="prototype"
+    destroy-method="myDestory"
+    init-method="myInit"></bean>
+</beans>
