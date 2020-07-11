@@ -231,6 +231,9 @@ public class IOCTest {
      *      构造器---->初始化方法---->销毁
      * 多例bean的生命周期
      *      获取bean（构造器）---->初始化方法---->容器关闭
+     * 后置处理器
+     *      构造器--后置处理器before-->初始化方法--后置处理器after-->销毁
+     *      无论bean是否有自定义初始化方法，后置处理器都认为你有
      * @Param: []
      * @return: void
      * @Author: Liuyunda
